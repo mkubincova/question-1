@@ -1,14 +1,15 @@
 const express = require('express');
 const https = require('https');
 const bodyParser = require("body-parser");
-const { runInNewContext } = require('vm');
 
 const app = express();
 
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static(__dirname + '/public'));
 
-//get html page with form
+//use css file in the public folder
+app.use(express.static(__dirname + '/public')); 
+
+//get index.html 
 app.get("/", function(req, res) {
     res.sendFile(__dirname + "/index.html");
 })
@@ -24,7 +25,6 @@ app.post("/", function(req, res) {
         //take data from api
         response.on("data", function(data){
 
-            
             //make data readable
             const countryData = JSON.parse(data);
 
